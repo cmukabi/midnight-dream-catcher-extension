@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Midnight Dream Catcher</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <header class="top">
+      <img src="icons/icon128.png" alt="" class="logo" />
+      <div class="titles">
+        <h1>Midnight Dream Catcher</h1>
+        <div id="clock" class="clock"></div>
+      </div>
+      <button
+        id="openSettings"
+        class="icon-btn"
+        title="Settings"
+        aria-label="Settings"
+      >
+        ⚙️
+      </button>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="log" role="tab" aria-selected="true">
+        📝 Dream Log
+      </button>
+      <button class="tab" data-tab="symbols" role="tab" aria-selected="false">
+        🔮 Symbols
+      </button>
+      <button class="tab" data-tab="vault" role="tab" aria-selected="false">
+        🎧 Vault
+      </button>
+    </nav>
+
+    <main>
+      <!-- TAB 1: DAYTIME DREAM LOG -->
+      <section id="tab-log" class="panel active" role="tabpanel">
+        <h2>Daytime Dream Log</h2>
+        <p class="hint">
+          Catch the fragments before they fade. Saved on this computer only.
+        </p>
+        <textarea
+          id="logText"
+          class="journal"
+          placeholder="A staircase that kept going down… water in the hallway…"
+          rows="6"
+        ></textarea>
+        <div class="row">
+          <button id="saveFragment" class="btn primary">
+            🌙 Save Fragment
+          </button>
+          <span id="logStatus" class="status"></span>
+        </div>
+
+        <div class="row wrap">
+          <button id="exportJson" class="btn">⬇️ Export (.json)</button>
+          <button id="copyAll" class="btn">📋 Copy All</button>
+          <button id="sendToApp" class="btn">📱 Send to App</button>
+        </div>
+
+        <div id="fragments" class="list"></div>
+      </section>
+
+      <!-- TAB 2: SYMBOL & MOTIF INTERPRETER -->
+      <section id="tab-symbols" class="panel" role="tabpanel">
+        <h2>Symbol &amp; Motif Interpreter</h2>
+        <p class="hint">
+          Highlight a word on any page, right-click, and choose
+          <em>Interpret in Midnight Dream Catcher</em>.
+        </p>
+        <div class="row">
+          <input
+            id="symbolInput"
+            type="text"
+            placeholder="e.g. falling, teeth, a locked door"
+            maxlength="500"
+          />
+        </div>
+        <p class="hint">Pick one lens. Each gives a short reading.</p>
+        <div
+          class="lens-pills"
+          id="lensPills"
+          role="radiogroup"
+          aria-label="Interpretation lens"
+        >
+          <button
+            type="button"
+            class="lens-pill"
+            role="radio"
+            aria-checked="true"
+            data-lens="biblical"
+          >
+            <span class="cross" aria-hidden="true">&#x271D;&#xFE0E;</span>
+            Biblical
+          </button>
+          <button
+            type="button"
+            class="lens-pill"
+            role="radio"
+            aria-checked="false"
+            data-lens="jungian"
+          >
+            🧠 Jungian
+          </button>
+          <button
+            type="button"
+            class="lens-pill"
+            role="radio"
+            aria-checked="false"
+            data-lens="emotional"
+          >
+            💭 Waking Life
+          </button>
+          <button
+            type="button"
+            class="lens-pill"
+            role="radio"
+            aria-checked="false"
+            data-lens="creative"
+          >
+            🎬 Story Spark
+          </button>
+          <button
+            type="button"
+            class="lens-pill"
+            role="radio"
+            aria-checked="false"
+            data-lens="islamic"
+          >
+            🕌 Islamic / Hadith
+          </button>
+        </div>
+        <button id="decode" class="btn primary">🔮 Decode Dream Meaning</button>
+        <div id="engineNote" class="hint"></div>
+        <div id="symbolResult" class="result" aria-live="polite"></div>
+        <div class="row wrap">
+          <button id="addToLog" class="btn hidden">📝 Add to Dream Log</button>
+          <button id="copyMeaning" class="btn hidden">📋 Copy</button>
+          <span id="symbolStatus" class="status"></span>
+        </div>
+        <div id="history" class="list"></div>
+      </section>
+
+      <!-- TAB 3: SOUNDSCAPE & VAULT -->
+      <section id="tab-vault" class="panel" role="tabpanel">
+        <h2>Soundscapes</h2>
+        <p class="hint">
+          Gentle ambient sound, made on your computer. Nothing is downloaded.
+        </p>
+        <div class="sound-grid">
+          <button class="sound" data-sound="rain">
+            🌧️<span>Night Rain</span>
+          </button>
+          <button class="sound" data-sound="brown">
+            🌊<span>Deep Ocean</span>
+          </button>
+          <button class="sound" data-sound="drone">
+            🌌<span>Starlight Drone</span>
+          </button>
+          <button class="sound" data-sound="pink">
+            🍃<span>Soft Wind</span>
+          </button>
+        </div>
+        <div class="row">
+          <label for="volume" class="hint">Volume</label>
+          <input id="volume" type="range" min="0" max="100" value="40" />
+          <button id="stopSound" class="btn">⏹ Stop</button>
+        </div>
+        <div class="row">
+          <label for="sleepTimer" class="hint">Fade out after</label>
+          <select id="sleepTimer">
+            <option value="0">Never</option>
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+            <option value="60">60 min</option>
+          </select>
+        </div>
+
+        <h2 class="spaced">☁️ Cloud Room</h2>
+        <p class="hint" id="vaultNote">
+          Your narrated dream videos and clips from the app.
+        </p>
+        <div class="row wrap">
+          <button id="refreshVault" class="btn primary">
+            🔄 Load My Cloud Room
+          </button>
+        </div>
+        <div id="player" class="player hidden">
+          <video id="videoEl" controls playsinline preload="metadata"></video>
+          <audio id="audioEl" controls preload="metadata"></audio>
+          <div id="nowPlaying" class="hint"></div>
+        </div>
+        <div id="vault" class="vault-grid"></div>
+
+        <details class="paste">
+          <summary>Play a link from the app</summary>
+          <div class="row">
+            <input
+              id="pasteUrl"
+              type="url"
+              placeholder="Paste a “View Link” from your cloud room"
+            />
+            <button id="playPasted" class="btn">▶︎</button>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <!-- SETTINGS DRAWER -->
+    <div id="scrim" class="scrim hidden"></div>
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-head">
+        <h2>Settings</h2>
+        <button id="closeSettings" class="done-btn" aria-label="Close settings">
+          🌙 Done
+        </button>
+      </div>
+
+      <a
+        id="openPwa"
+        class="btn primary block"
+        href="#"
+        target="_blank"
+        rel="noopener"
+        >📱 Open the full Midnight Dream Catcher app</a
+      >
+      <label class="lbl" for="pwaUrl">App address</label>
+      <input
+        id="pwaUrl"
+        type="url"
+        placeholder="https://dreamcatcherapp.co.uk"
+      />
+
+      <h3>Pro account (optional)</h3>
+      <p class="hint">
+        Sign in with the email and DRM- token from your subscription to see your
+        Cloud Room from every device.
+      </p>
+      <label class="lbl" for="proEmail">Email</label>
+      <input id="proEmail" type="email" autocomplete="email" />
+      <label class="lbl" for="proToken">Token</label>
+      <input id="proToken" type="password" placeholder="DRM-XXXXXX" />
+
+      <h3>Your own AI keys (optional)</h3>
+      <p class="hint">
+        Keys stay in this browser and are sent only to the provider you choose.
+        Leave them blank to use the built-in symbol guide.
+      </p>
+      <label class="lbl" for="provider">Use</label>
+      <select id="provider">
+        <option value="local">Built-in symbol guide (offline)</option>
+        <option value="openai">OpenAI</option>
+        <option value="anthropic">Anthropic</option>
+      </select>
+      <label class="lbl" for="openaiKey">OpenAI API key</label>
+      <input
+        id="openaiKey"
+        type="password"
+        placeholder="sk-…"
+        autocomplete="off"
+      />
+      <label class="lbl" for="openaiModel">OpenAI model</label>
+      <input id="openaiModel" type="text" />
+      <label class="lbl" for="anthropicKey">Anthropic API key</label>
+      <input
+        id="anthropicKey"
+        type="password"
+        placeholder="sk-ant-…"
+        autocomplete="off"
+      />
+      <label class="lbl" for="anthropicModel">Anthropic model</label>
+      <input id="anthropicModel" type="text" />
+
+      <div class="row">
+        <button id="saveSettings" class="btn primary">Save</button>
+        <span id="settingsStatus" class="status"></span>
+      </div>
+
+      <h3>Data</h3>
+      <button id="clearData" class="btn danger">
+        Delete everything stored by this extension
+      </button>
+    </aside>
+
+    <script src="symbols.js"></script>
+    <script src="sidepanel.js"></script>
+  </body>
+</html>

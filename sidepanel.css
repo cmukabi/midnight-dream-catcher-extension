@@ -1,0 +1,214 @@
+/* Midnight Dream Catcher — Desktop Companion
+   Palette, type and controls copied from the web app's index.html (dreamcatcherapp.co.uk). */
+:root {
+  --black: #000000;
+  --amber: #d97706;       /* body text */
+  --amber-hi: #fbbf24;    /* emphasis */
+  --amber-dim: #8a4b06;   /* secondary text */
+  --amber-faint: #5c3304; /* placeholders, hints */
+  --line: #2e1a02;        /* borders */
+  --surface: #0b0600;     /* cards */
+  --surface-2: #140b00;   /* buttons */
+  --pill-on: #2a1600;
+  --danger: #b45309;
+  --radius: 16px;
+  --tap: 48px;            /* the app uses 56px for phones; 48px suits a desktop side panel */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0;
+  background: var(--black);
+  color: var(--amber);
+  font: 16px/1.55 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+body { min-height: 100vh; padding-bottom: 32px; }
+::selection { background: var(--amber); color: #000; }
+::placeholder { color: var(--amber-faint); }
+
+/* Header: logo, centred title with the time beneath, quiet corner icon */
+.top {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 16px 14px 10px;
+}
+.logo {
+  width: 44px; height: 44px; border-radius: 12px; object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(217, 119, 6, 0.35), 0 0 28px rgba(217, 119, 6, 0.18);
+}
+.titles { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
+h1, h2 {
+  margin: 0;
+  font: 700 18px/1.25 var(--font);
+  letter-spacing: 0.01em;
+  color: var(--amber-hi);
+}
+h2 { margin: 8px 0 4px; }
+h2.spaced { margin-top: 26px; }
+h3 {
+  margin: 22px 0 6px; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber-dim);
+}
+.clock { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--amber-dim); }
+
+/* Buttons (same as the app's base button) */
+button, .btn {
+  appearance: none; font: inherit; font-weight: 700;
+  color: var(--amber-hi); background: var(--surface-2);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  min-height: var(--tap); padding: 0 16px; cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+}
+.btn { font-size: 15px; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+button:active, .btn:active { transform: scale(0.98); }
+button:focus-visible, .btn:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--amber); outline-offset: 2px;
+}
+button[disabled] { opacity: 0.5; cursor: progress; }
+.btn.primary { border: 2px solid var(--amber); background: #1a0e00; color: var(--amber-hi); }
+.btn.primary:hover { background: #241200; }
+.btn.danger { border-color: var(--danger); color: var(--amber); }
+.btn.block { display: flex; width: 100%; text-decoration: none; margin: 12px 0 6px; white-space: normal; text-align: center; padding: 10px 16px; line-height: 1.3; }
+
+.icon-btn {
+  position: absolute; top: 12px; right: 12px;
+  width: 40px; min-height: 40px; padding: 0; border-radius: 50%;
+  background: transparent; border: 1px solid var(--line);
+  font-size: 17px; line-height: 1; display: inline-flex; align-items: center; justify-content: center;
+  opacity: 0.85;
+}
+.done-btn {
+  min-height: 40px; padding: 0 14px; border-radius: 999px;
+  background: var(--black); color: var(--amber-hi); font-size: 15px;
+}
+
+/* Tabs (same as the app's Dream Diary tabs) */
+.tabs {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+  padding: 4px 12px 10px;
+  position: sticky; top: 0; background: var(--black); z-index: 2;
+}
+.tab {
+  min-height: 44px; padding: 0 4px; border-radius: 14px;
+  border: 1px solid var(--line); background: #050300;
+  color: var(--amber-dim); font-weight: 700; font-size: 14px;
+}
+.tab[aria-selected="true"] { border: 2px solid var(--amber); background: #120a00; color: var(--amber-hi); }
+
+main { padding: 2px 14px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.hint { color: var(--amber-dim); font-size: 14px; margin: 2px 0 10px; }
+.hint em { color: var(--amber); font-style: normal; }
+.status { color: var(--amber-hi); font-size: 13px; }
+.hidden { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* Inputs (same as the app) */
+textarea, input[type=text], input[type=url], input[type=email], input[type=password], select {
+  width: 100%; font: inherit; font-size: 16px;
+  color: var(--amber-hi); background: var(--black);
+  border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; caret-color: var(--amber-hi);
+}
+input, select { min-height: var(--tap); }
+textarea { resize: vertical; line-height: 1.6; }
+.journal { min-height: 150px; }
+select {
+  appearance: none; cursor: pointer; padding-right: 40px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--amber-dim) 50%),
+    linear-gradient(135deg, var(--amber-dim) 50%, transparent 50%);
+  background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%;
+  background-size: 6px 6px; background-repeat: no-repeat;
+}
+select option { background: #000; }
+input[type=range] { flex: 1; accent-color: var(--amber); }
+
+.row { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+.row.wrap { flex-wrap: wrap; }
+.row > select { flex: 1; width: auto; }
+
+/* Lens pills (same as the app's decoder) */
+.lens-pills { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+.lens-pill {
+  min-height: 44px; padding: 6px 10px; border-radius: 16px;
+  font-size: 14px; font-weight: 600; line-height: 1.25; color: var(--amber);
+}
+.lens-pill:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.lens-pill[aria-checked="true"] { background: var(--pill-on); border-color: var(--amber); color: var(--amber-hi); }
+.cross { font-family: "Apple Symbols", "Segoe UI Symbol", serif; font-weight: 400; }
+#decode { width: 100%; }
+
+/* Cards and lists */
+.list { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+  padding: 12px 14px;
+}
+.card .meta {
+  display: flex; justify-content: space-between; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--amber-dim); font-variant-numeric: tabular-nums; margin-bottom: 4px;
+}
+.card .body { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--amber); }
+.card .actions { display: flex; gap: 2px; }
+.card .actions button {
+  min-height: 30px; padding: 0 6px; border: 0; background: none;
+  color: var(--amber-dim); font-size: 13px; border-radius: 8px;
+}
+.card .actions button:hover { color: var(--amber-hi); background: var(--surface-2); }
+.empty { color: var(--amber-faint); font-size: 14px; text-align: center; padding: 18px 0; }
+
+.result {
+  margin-top: 12px; padding: 14px; white-space: pre-wrap;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+  font-size: 16px; line-height: 1.6; color: var(--amber-hi);
+}
+.result:empty { display: none; }
+
+/* Soundscapes */
+.sound-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sound {
+  min-height: 84px; padding: 12px 8px; border-radius: 18px; background: #050300;
+  font-size: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.sound span { font-size: 13px; color: var(--amber-dim); font-weight: 700; }
+.sound.playing { border: 2px solid var(--amber); background: #120a00; }
+.sound.playing span { color: var(--amber-hi); }
+
+/* Vault (same feel as the app's Cloud Room) */
+.player { margin: 10px 0; }
+.player video { width: 100%; border-radius: 16px; background: #000; border: 1px solid var(--line); }
+.player audio { width: 100%; margin-top: 6px; }
+.player video:not([src]), .player audio:not([src]) { display: none; }
+.vault-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+.tile {
+  position: relative; aspect-ratio: 1; padding: 0; overflow: hidden;
+  border-radius: 14px; border: 1px solid var(--line); background: var(--surface);
+}
+.tile:hover { border-color: var(--amber-dim); }
+.tile img, .tile video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+.tile .badge {
+  position: absolute; left: 6px; bottom: 6px; font-size: 11px; font-weight: 700;
+  background: rgba(0, 0, 0, 0.78); color: var(--amber-hi); padding: 2px 7px; border-radius: 999px;
+}
+.tile .glyph { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 30px; }
+.paste { margin-top: 16px; color: var(--amber-dim); font-size: 14px; }
+.paste summary { cursor: pointer; }
+
+/* Settings: a full-height black sheet, like the app's settings screen */
+.scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 9; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 100%;
+  background: #000; padding: 14px 16px 40px; overflow-y: auto; z-index: 10;
+  transform: translateX(100%); transition: transform 0.22s ease;
+}
+.drawer.open { transform: none; }
+.drawer-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.lbl { display: block; font-size: 13px; color: var(--amber-dim); margin: 12px 0 4px; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }

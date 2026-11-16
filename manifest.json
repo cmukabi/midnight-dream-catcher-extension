@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Midnight Dream Catcher — Desktop Companion",
+  "version": "1.0.0",
+  "description": "Log daytime dream fragments, decode web symbols via right-click, and play ambient dream soundscapes in a pitch-black OLED side panel.",
+  "permissions": [
+    "sidePanel",
+    "contextMenus",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Midnight Dream Catcher"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
